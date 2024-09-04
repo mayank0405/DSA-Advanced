@@ -7,18 +7,15 @@ def maximum_difference_brute_force(l: list[int]) -> int:
             res = max(res, diff)
     return res
 
-def maximum_difference_2(l: list[int]) -> int:
+def maximum_difference(l: list[int]) -> int:
     #TC: O(n)
-    '''in order to maximise difference, we will need min value so we keep track of min value as well. then we get the 
-    difference of min value with each element and then get the max of it. In this way we traverse only once in the array.'''
-    res = l[1] - l[0]
-    minval = l[0]
-    for i in range(1, len(l)):
-        res = max(res, l[i]- minval)
-        minval = min(minval, l[i])
-    return res
-
+    #find the max and min element and then return difference
+    min_element = l[0]
+    max_element = l[0]
+    for num in l[1:]:
+        min_element = min(min_element, num)
+        max_element = max(max_element, num)
+    return max_element - min_element
 if __name__ == '__main__':
     arr = list(map(int, input('Enter array: ').split()))
-    print(maximum_difference_brute_force(arr))
-    print(maximum_difference_2(arr))
+    print(maximum_difference(arr))
