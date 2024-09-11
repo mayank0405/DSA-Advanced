@@ -1,36 +1,14 @@
-def subset_sum(arr: list[int], target: int) -> int:
-    n = len(arr)
-    power_set = []
-    subset = []
-    
-    # Depth First Search to generate all subsets
-    def dfs(i):
-        if i >= n:
-            power_set.append(subset.copy())
-            return
-        # Include the element
-        subset.append(arr[i])
-        dfs(i + 1)
-        # Exclude the element
-        subset.pop()
-        dfs(i + 1)
-
-    dfs(0)
-    
-    # Print all subsets
-    print("Generated Power Set: ", power_set)
-    
-    count = 0
-    # Count how many subsets sum up to the target
-    for sub in power_set:
-        if sum(sub) == target:
-            count += 1
-
-    return count
+#here we have to tell whther a subset of an array has a sum equal to the given sum of not
+def countSubsetSum(arr: list[int], sum, n)->int:
+    if n == 0:
+        if sum == 0:
+            return 1
+        else:
+            return 0
+    return countSubsetSum(arr, sum - arr[n-1], n-1) + countSubsetSum(arr, sum, n - 1)
 
 if __name__ == '__main__':
-    nums = list(map(int, input('Enter array: ').split()))
-    sum = int(input('Enter sum: '))
-    ans = subset_sum(nums, sum)
+    array = list(map(int, input('Enter array: ').split()))
+    sum = int(input('Enter the sum: '))
+    ans = countSubsetSum(array, sum, len(array))
     print(ans)
-
