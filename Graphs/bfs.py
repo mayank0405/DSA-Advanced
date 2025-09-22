@@ -2,19 +2,18 @@ from collections import deque
 from typing import List
 
 def bfs(adj: List[List[int]], s: int) -> List[int]:
-    n = len(adj)
-    visited = [False] * n
+    visited = set()
     ans = []
     q = deque()
     q.append(s)
-    visited[s] = True
+    visited.add(s)
     while q:
         e = q.popleft()
         ans.append(e)
         for a in adj[e]:
-            if not visited[a]:
+            if a not in visited:
                 q.append(a)
-                visited[a] = True
+                visited.add(a)
 
     return ans
 
